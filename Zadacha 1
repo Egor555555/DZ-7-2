@@ -1,9 +1,16 @@
-s = input()
-f = open(s, 'r')
-n, l = map(int, f.readline().split())
-a = [0] * (n + l)
-for i in range(l + 1, n + l):
-    for j in range(1, l + 1):
-        a[i] = a[i] + a[i - j]
-print(a[n + l - 1])
-f.close()
+input_filename = input("Введите имя файла для чтения: ")
+output_filename = input("Введите имя файла для записи: ")
+
+with open(input_filename, "r") as input_file, open(output_filename, "w") as output_file:
+    n = int(input_file.readline().strip())
+    l = int(input_file.readline().strip())
+
+    a = [0] * (n + 1)
+    a[0] = 1
+
+    for i in range(1, n + 1):
+        for j in range(1, l + 1):
+            if i - j >= 0:
+                a[i] += a[i - j]
+
+    output_file.write(str(a[n]))
